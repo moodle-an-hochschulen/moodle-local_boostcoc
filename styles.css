@@ -1,0 +1,6 @@
+/* Make usage hint smaller and always non-bold */
+#nav-drawer a.list-group-item[data-key|=localboostcocusagehint],
+#nav-drawer div.list-group-item[data-key|=localboostcocusagehint] {
+    font-size: 80%;
+    font-weight: normal;
+}
