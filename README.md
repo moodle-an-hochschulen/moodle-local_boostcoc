@@ -49,6 +49,34 @@ local_boostcoc also re-uses some code from local_boostnavigation which is publis
 Although you might not need the functionality of local_boostnavigation, local_boostcoc does not work without this plugin.
 
 
+Sorting of the mycourses list
+-----------------------------
+
+Currently, the sorting of the mycourses list in the nav drawer is controlled by Moodle core by the setting navsortmycoursessort which can be configured on /admin/settings.php?section=navigation. While this setting offers four options for sorting the courses, there is a hardcoded pre-sorting which always puts invisible courses at the end of the list.
+
+In contrast, the course list on block_course_overview_campus is currently sorted alphabetically (ignoring the fact if courses are visible or invisible) and, if you have enabled block_course_overview_campus's prioritizemyteachedcourses setting, will put courses in which the user has a teacher role at the beginning of his course list.
+
+We plan to improve this sorting mismatch in a later release of local_boostcoc. Until then, for a best possible match of list sortings we recommend
+1. to set navsortmycoursessort = "Course full name" in Moodle core,
+2. to set prioritizemyteachedcourses = No in block_course_overview_campus.
+
+Optionally, if you can and want to add core hacks to Moodle core, you can apply this patch to prevent Moodle core from putting invisible courses at the end of the mycourses list in the nav drawer which will make the course list sortings really equal:
+
+```
+--- a/lib/navigationlib.php
++++ b/lib/navigationlib.php
+@@ -2883,7 +2883,7 @@ class global_navigation extends navigation_node {
+      */
+     protected function load_courses_enrolled() {
+         global $CFG;
+-        $sortorder = 'visible DESC';
++        $sortorder = 'fullname ASC';
+         // Prevent undefined $CFG->navsortmycoursessort errors.
+         if (empty($CFG->navsortmycoursessort)) {
+             $CFG->navsortmycoursessort = 'sortorder';
+```
+
+
 Motivation for this plugin
 --------------------------
 
