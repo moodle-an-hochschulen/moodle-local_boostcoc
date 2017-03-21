@@ -33,9 +33,9 @@ if ($hassiteconfig) {
 
 
     if ($ADMIN->fulltree) {
-        // Add general settings heading.
-        $page->add(new admin_setting_heading('local_boostcoc/generalsettingsheading',
-                get_string('setting_generalsettingsheading', 'local_boostcoc', null, true),
+        // Add general functionality heading.
+        $page->add(new admin_setting_heading('local_boostcoc/generalfunctionalityheading',
+                get_string('setting_generalfunctionalityheading', 'local_boostcoc', null, true),
                 ''));
 
         // Create enable not shown courses control widget.
@@ -46,10 +46,21 @@ if ($hassiteconfig) {
                         get_string('setting_enablenotshownperformancehint', 'local_boostcoc'),
                 0));
 
-        // Create add usage hint control widget.
-        $page->add(new admin_setting_configcheckbox('local_boostcoc/addusagehint',
-                get_string('setting_addusagehint', 'local_boostcoc', null, true),
-                get_string('setting_addusagehint_desc', 'local_boostcoc', null, true),
+        // Add filter status heading.
+        $page->add(new admin_setting_heading('local_boostcoc/filterstatusheading',
+                get_string('setting_filterstatusheading', 'local_boostcoc', null, true),
+                ''));
+
+        // Create add active filters hint control widget.
+        $page->add(new admin_setting_configcheckbox('local_boostcoc/addactivefiltershint',
+                get_string('setting_addactivefiltershint', 'local_boostcoc', null, true),
+                get_string('setting_addactivefiltershint_desc', 'local_boostcoc', null, true),
+                0));
+
+        // Create add change filters link control widget.
+        $page->add(new admin_setting_configcheckbox('local_boostcoc/addchangefilterslink',
+                get_string('setting_addchangefilterslink', 'local_boostcoc', null, true),
+                get_string('setting_addchangefilterslink_desc', 'local_boostcoc', null, true),
                 0));
     }
 

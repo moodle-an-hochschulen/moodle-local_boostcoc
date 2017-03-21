@@ -49,12 +49,31 @@ local_boostcoc also re-uses some code from local_boostnavigation which is publis
 Although you might not need the functionality of local_boostnavigation, local_boostcoc does not work without this plugin.
 
 
-Sorting of the mycourses list
------------------------------
+Motivation for this plugin
+--------------------------
 
-Currently, the sorting of the mycourses list in the nav drawer is controlled by Moodle core by the setting navsortmycoursessort which can be configured on /admin/settings.php?section=navigation. While this setting offers four options for sorting the courses, there is a hardcoded pre-sorting which always puts invisible courses at the end of the list.
+Since the release of Moodle 3.2, Moodle core ships with a shiny new theme called "Boost". While Boost does many things right and better than the legacy theme Clean, it also has some fixed behaviours which don't make sense for all Moodle installations. One of these behaviours is the fact that the mycourses list in the nav drawer (the menu which appears when you click on the hamburger menu button) is non-collapsible, always contains all of my courses and can hardly be configured by administrators.
 
-In contrast, the course list on block_course_overview_campus is currently sorted alphabetically (ignoring the fact if courses are visible or invisible) and, if you have enabled block_course_overview_campus's prioritizemyteachedcourses setting, will put courses in which the user has a teacher role at the beginning of his course list.
+Luckily, Moodle provides the *_extend_navigation() hook which allows plugin developers to fumble with Moodle's global navigation tree at runtime. This plugin leverages this hook and does its best to add support for filtering and hiding courses with block_course_overview_campus to the mycourses list in the nav drawer.
+
+
+Uniformity of the mycourses lists
+---------------------------------
+
+The mycourses list which is added to the nav drawer by Moodle core and which are shown in block_course_overview_campus are created and configured independently. To help you to create a uniform look & feel of both mycourses lists, we want to give you some advice:
+
+### Course name style
+
+In block_course_overview_campus, you can use the setting firstrowcoursename to control if you want to see a course's full name or short name in the first line of the course list entries.
+
+In Moodle core and thus in the nav drawer, the same control is possible with the setting navshowfullcoursenames which can be configured on /admin/settings.php?section=navigation.
+
+
+### List sorting
+
+In block_course_overview_campus, the mycourses list is currently sorted alphabetically (ignoring the fact if courses are visible or invisible) and, if you have enabled block_course_overview_campus's prioritizemyteachedcourses setting, will put courses in which the user has a teacher role at the beginning of his course list.
+
+In Moodle core and thus in the nav drawer, the sorting of the mycourses list is controlled by the setting navsortmycoursessort which can be configured on /admin/settings.php?section=navigation. While this setting offers four options for sorting the courses, there is a hardcoded pre-sorting which always puts invisible courses at the end of the list.
 
 We plan to improve this sorting mismatch in a later release of local_boostcoc. Until then, for a best possible match of list sortings we recommend
 1. to set navsortmycoursessort = "Course full name" in Moodle core,
@@ -77,12 +96,11 @@ Optionally, if you can and want to add core hacks to Moodle core, you can apply 
 ```
 
 
-Motivation for this plugin
---------------------------
+### List title
 
-Since the release of Moodle 3.2, Moodle core ships with a shiny new theme called "Boost". While Boost does many things right and better than the legacy theme Clean, it also has some fixed behaviours which don't make sense for all Moodle installations. One of these behaviours is the fact that the mycourses list in the nav drawer (the menu which appears when you click on the hamburger menu button) is non-collapsible, always contains all of my courses and can hardly be configured by administrators.
+In block_course_overview_campus, you can use the setting blocktitle to control the title of the block which is set to "Course overview" by default, but may be set to other strings like "My courses".
 
-Luckily, Moodle provides the *_extend_navigation() hook which allows plugin developers to fumble with Moodle's global navigation tree at runtime. This plugin leverages this hook and does its best to add support for filtering and hiding courses with block_course_overview_campus to the mycourses list in the nav drawer.
+In Moodle core and thus in the nav drawer, the mycourses list's navigation node gets the title "My courses". This string comes from the "core" language pack and has the identifier "mycourses". If you want to align the navigation node's title, you can change the string on /admin/tool/customlang/index.php.
 
 
 Further information

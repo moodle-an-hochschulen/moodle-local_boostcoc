@@ -25,7 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Get a string of the filters which are currently applied in block_course_overview_campus
+ * Get a string of the filters which are currently active in block_course_overview_campus
  *
  * @return string
  */
@@ -33,10 +33,10 @@ function local_boostcoc_get_activefilters_string() {
     // Get list of active filters which is remembered by block_course_overview_campus for us.
     $activefilters = json_decode(get_user_preferences('local_boostcoc-activefilters', '[]'));
 
-    // If any filter is enabled.
+    // If any filter is active.
     if (count($activefilters) > 0) {
         // Prepare string.
-        $activefiltersstring = get_string('usagehintnotshowenabledactivefilters', 'local_boostcoc');
+        $activefiltersstring = get_string('activefiltershintnotshowenabledactivefilters', 'local_boostcoc');
         $activefiltersstring .= html_writer::empty_tag('br');
 
         // Mapping from element IDs to configured filter names.
@@ -55,9 +55,9 @@ function local_boostcoc_get_activefilters_string() {
         // Concat real filter names.
         $activefiltersstring .= implode(', ', $activefiltersrealnames);
     }
-    // If no filter is enabled.
+    // If no filter is active.
     else {
-        $activefiltersstring = get_string('usagehintnotshowenablednoactivefilters', 'local_boostcoc');
+        $activefiltersstring = get_string('activefiltershintnotshowenablednoactivefilters', 'local_boostcoc');
     }
 
     // Return string.

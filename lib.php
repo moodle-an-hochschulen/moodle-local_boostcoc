@@ -45,7 +45,7 @@ function local_boostcoc_extend_navigation(global_navigation $navigation) {
     // We have to check explicitely if the configurations are set because this function will already be
     // called at installation time and would then throw PHP notices otherwise.
     if ((isset($lbcoc_config->enablenotshown) && $lbcoc_config->enablenotshown == true) ||
-            (isset($lbcoc_config->addusagehint) && $lbcoc_config->addusagehint == true)) {
+            (isset($lbcoc_config->addactivefiltershint) && $lbcoc_config->addactivefiltershint == true)) {
         $mycoursesnode = $navigation->find('mycourses', global_navigation::TYPE_ROOTNODE);
     }
 
@@ -87,30 +87,44 @@ function local_boostcoc_extend_navigation(global_navigation $navigation) {
         }
     }
 
-    // Check if admin wanted us to add the usage hint to the mycourses list in Boost's nav drawer.
-    if (isset($lbcoc_config->addusagehint) && $lbcoc_config->addusagehint == true) {
+    // Check if admin wanted us to add the active filters hint or change filters link to the mycourses list in Boost's nav drawer.
+    if ((isset($lbcoc_config->addactivefiltershint) && $lbcoc_config->addactivefiltershint == true) ||
+            isset($lbcoc_config->addchangefilterslink) && $lbcoc_config->addchangefilterslink == true) {
         // If yes, do it.
         if ($mycoursesnode) {
-            // Create usage hint string and url.
-            if ($lbcoc_config->enablenotshown == true) {
-                $usagehinturl = new moodle_url('/my/');
-                $usagehintstring = local_boostcoc_get_activefilters_string();
-                $usagehintstring .= html_writer::empty_tag('br');
-                $usagehintstring .= html_writer::link($usagehinturl,
-                        get_string('usagehintnotshowenabledchangenotshown', 'local_boostcoc'));
-            } else {
-                $usagehintstring = get_string('usagehintnotshowdisabled', 'local_boostcoc');
+            // Prepare string.
+            $string = '';
+
+            // Create active filters hint.
+            if ($lbcoc_config->addactivefiltershint == true) {
+                // Build active filters hint string.
+                if ($lbcoc_config->enablenotshown == true) {
+                    $string .= local_boostcoc_get_activefilters_string();
+                } else {
+                    $string .= get_string('activefiltershintnotshowdisabled', 'local_boostcoc');
+                }
             }
 
-            // Create usage hint node.
-            $usagehintnode = navigation_node::create($usagehintstring, null, global_navigation::TYPE_COURSE, null,
-                     'localboostcocusagehint');
+            // Add line break if both settings are enabled.
+            if ($lbcoc_config->addactivefiltershint == true && $lbcoc_config->addchangefilterslink == true) {
+                $string .= html_writer::empty_tag('br');
+            }
 
-            // Show the usage hint node in Boost's nav drawer.
-            $usagehintnode->showinflatnavigation = true;
+            // Create change filters link.
+            if ($lbcoc_config->addchangefilterslink == true) {
+                $url = new moodle_url('/my/');
+                $string .= html_writer::link($url, get_string('activefiltershintnotshowenabledchangelink', 'local_boostcoc'));
+            }
 
-            // Add the node to the mycourses list in Boost's nav drawer.
-            $mycoursesnode->add_node($usagehintnode);
+            // Create new navigation node.
+            $navnode = navigation_node::create($string, null, global_navigation::TYPE_CUSTOM, null,
+                    'localboostcocactivefiltershint');
+
+            // Show the navigation node in Boost's nav drawer.
+            $navnode->showinflatnavigation = true;
+
+            // Add the node to the mycourses list in Boost's nav drawer (will be added at the end where we want it to be).
+            $mycoursesnode->add_node($navnode);
         }
     }
 }
