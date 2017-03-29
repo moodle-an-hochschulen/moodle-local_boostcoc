@@ -62,6 +62,15 @@ if ($hassiteconfig) {
                 get_string('setting_addchangefilterslink', 'local_boostcoc', null, true),
                 get_string('setting_addchangefilterslink_desc', 'local_boostcoc', null, true),
                 0));
+
+        // Create change filters link target control widget.
+        $changefilterslinktarget[HOMEPAGE_MY] = get_string('myhome', 'core', null, false); // Don't use string lazy loading here because the string will be directly used and would produce a PHP warning otherwise.
+        $changefilterslinktarget[HOMEPAGE_SITE] = get_string('sitehome', 'core', null, true);
+        $page->add(new admin_setting_configselect('local_boostcoc/changefilterslinktarget',
+                get_string('setting_changefilterslinktarget', 'local_boostcoc', null, true),
+                get_string('setting_changefilterslinktarget_desc', 'local_boostcoc', null, true),
+                $changefilterslinktarget[HOMEPAGE_MY],
+                $changefilterslinktarget));
     }
 
 

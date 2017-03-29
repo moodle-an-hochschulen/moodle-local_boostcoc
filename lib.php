@@ -112,7 +112,18 @@ function local_boostcoc_extend_navigation(global_navigation $navigation) {
 
             // Create change filters link.
             if ($lbcoc_config->addchangefilterslink == true) {
-                $url = new moodle_url('/my/');
+                // Link target: Site home.
+                if ($lbcoc_config->changefilterslinktarget == HOMEPAGE_SITE) {
+                    $url = new moodle_url('/', array('redirect' => 0));
+                }
+                // Link target: Dashboard.
+                else if ($lbcoc_config->changefilterslinktarget == HOMEPAGE_MY) {
+                    $url = new moodle_url('/my/');
+                }
+                // Should not happen.
+                else {
+                    $url = new moodle_url('/my/');
+                }
                 $string .= html_writer::link($url, get_string('activefiltershintnotshowenabledchangelink', 'local_boostcoc'));
             }
 
