@@ -30,5 +30,5 @@ $plugin->release = 'v3.2-r1';
 $plugin->requires = 2016120500;
 $plugin->maturity = MATURITY_STABLE;
 $plugin->dependencies = array('theme_boost' => 2016120500,
-        'block_course_overview_campus' => 2017031000,
+        'block_course_overview_campus' => 2017033100,
         'local_boostnavigation' => 2017033100);
