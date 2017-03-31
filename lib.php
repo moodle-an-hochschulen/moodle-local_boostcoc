@@ -54,7 +54,7 @@ function local_boostcoc_extend_navigation(global_navigation $navigation) {
         // If yes, do it.
         if ($mycoursesnode) {
             // Get list of not shown courses which is remembered by block_course_overview_campus for us.
-            $notshowncourses = json_decode(get_user_preferences('local_boostcoc-notshowncourses', '[]'));
+            $notshowncourses = local_boostcoc_get_notshowncourses();
 
             // We only need to continue if there are any courses not to be shown currently.
             if (count($notshowncourses) > 0) {

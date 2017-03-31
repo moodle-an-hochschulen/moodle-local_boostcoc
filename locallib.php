@@ -33,8 +33,20 @@ function local_boostcoc_get_activefilters_string() {
     // Get list of active filters which is remembered by block_course_overview_campus for us.
     $activefilters = json_decode(get_user_preferences('local_boostcoc-activefilters', '[]'));
 
+    // Check if there were problems decoding the JSON string or if we did get anything else than an array from JSON.
+    if (json_last_error() != JSON_ERROR_NONE || !is_array($activefilters)) {
+        // Pretend that everything is ok, we don't want to break the UI.
+        return get_string('activefiltershintnotshowenablednoactivefilters', 'local_boostcoc');
+    }
+
+    // Clean the array elements, just to be sure that there was no malicious stuff in the JSON array.
+    $activefilterscleaned = array();
+    foreach ($activefilters as $filter) {
+        $activefilterscleaned[] = clean_param($filter, PARAM_ALPHA);
+    }
+
     // If any filter is active.
-    if (count($activefilters) > 0) {
+    if (count($activefilterscleaned) > 0) {
         // Prepare string.
         $activefiltersstring = get_string('activefiltershintnotshowenabledactivefilters', 'local_boostcoc');
         $activefiltersstring .= html_writer::empty_tag('br');
@@ -48,18 +60,44 @@ function local_boostcoc_get_activefilters_string() {
 
         // Put real filter names into array.
         $activefiltersrealnames = array();
-        foreach ($activefilters as $key => $value) {
-            $activefiltersrealnames[] = $map[$value];
+        foreach ($activefilterscleaned as $filter) {
+            $activefiltersrealnames[] = $map[$filter];
         }
 
         // Concat real filter names.
         $activefiltersstring .= implode(', ', $activefiltersrealnames);
+
+        // Return string.
+        return $activefiltersstring;
     }
     // If no filter is active.
     else {
-        $activefiltersstring = get_string('activefiltershintnotshowenablednoactivefilters', 'local_boostcoc');
+        return get_string('activefiltershintnotshowenablednoactivefilters', 'local_boostcoc');
+    }
+}
+
+
+/**
+ * Get an array of the courses which are currently not shown in block_course_overview_campus
+ *
+ * @return array
+ */
+function local_boostcoc_get_notshowncourses() {
+    // Get list of not shown courses which is remembered by block_course_overview_campus for us.
+    $notshowncourses = json_decode(get_user_preferences('local_boostcoc-notshowncourses', '[]'));
+
+    // Check if there were problems decoding the JSON string or if we did get anything else than an array from JSON.
+    if (json_last_error() != JSON_ERROR_NONE || !is_array($notshowncourses)) {
+        // Pretend that there aren't any not shown courses, we don't want to break the UI.
+        return array();
     }
 
-    // Return string.
-    return $activefiltersstring;
+    // Clean the array elements, just to be sure that there was no malicious stuff in the JSON array.
+    $notshowncoursescleaned = array();
+    foreach ($notshowncourses as $course) {
+        $notshowncoursescleaned[] = clean_param($course, PARAM_INT);
+    }
+
+    // Return array.
+    return $notshowncoursescleaned;
 }
