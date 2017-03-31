@@ -31,7 +31,7 @@ defined('MOODLE_INTERNAL') || die();
  */
 function local_boostcoc_get_activefilters_string() {
     // Get list of active filters which is remembered by block_course_overview_campus for us.
-    $activefilters = json_decode(get_user_preferences('local_boostcoc-activefilters', '[]'));
+    $activefilters = json_decode(get_user_preferences('local_boostcoc-activefilters', '[]'), false, 2);
 
     // Check if there were problems decoding the JSON string or if we did get anything else than an array from JSON.
     if (json_last_error() != JSON_ERROR_NONE || !is_array($activefilters)) {
@@ -84,7 +84,7 @@ function local_boostcoc_get_activefilters_string() {
  */
 function local_boostcoc_get_notshowncourses() {
     // Get list of not shown courses which is remembered by block_course_overview_campus for us.
-    $notshowncourses = json_decode(get_user_preferences('local_boostcoc-notshowncourses', '[]'));
+    $notshowncourses = json_decode(get_user_preferences('local_boostcoc-notshowncourses', '[]'), false, 2);
 
     // Check if there were problems decoding the JSON string or if we did get anything else than an array from JSON.
     if (json_last_error() != JSON_ERROR_NONE || !is_array($notshowncourses)) {
