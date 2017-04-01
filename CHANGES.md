@@ -6,4 +6,4 @@ Changes
 
 ### v3.2-r1
 
-* 2017-03-07 - Initial version
+* 2017-04-01 - Initial version
