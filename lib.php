@@ -92,50 +92,53 @@ function local_boostcoc_extend_navigation(global_navigation $navigation) {
             isset($lbcoc_config->addchangefilterslink) && $lbcoc_config->addchangefilterslink == true) {
         // If yes, do it.
         if ($mycoursesnode) {
-            // Prepare string.
-            $string = '';
+            // Do only if I am enrolled in at least one course.
+            if (count($mycoursesnode->get_children_key_list()) > 0) {
+                // Prepare string.
+                $string = '';
 
-            // Create active filters hint.
-            if ($lbcoc_config->addactivefiltershint == true) {
-                // Build active filters hint string.
-                if ($lbcoc_config->enablenotshown == true) {
-                    $string .= local_boostcoc_get_activefilters_string();
-                } else {
-                    $string .= get_string('activefiltershintnotshowdisabled', 'local_boostcoc');
+                // Create active filters hint.
+                if ($lbcoc_config->addactivefiltershint == true) {
+                    // Build active filters hint string.
+                    if ($lbcoc_config->enablenotshown == true) {
+                        $string .= local_boostcoc_get_activefilters_string();
+                    } else {
+                        $string .= get_string('activefiltershintnotshowdisabled', 'local_boostcoc');
+                    }
                 }
+
+                // Add line break if both settings are enabled.
+                if ($lbcoc_config->addactivefiltershint == true && $lbcoc_config->addchangefilterslink == true) {
+                    $string .= html_writer::empty_tag('br');
+                }
+
+                // Create change filters link.
+                if ($lbcoc_config->addchangefilterslink == true) {
+                    // Link target: Site home.
+                    if ($lbcoc_config->changefilterslinktarget == HOMEPAGE_SITE) {
+                        $url = new moodle_url('/', array('redirect' => 0));
+                    }
+                    // Link target: Dashboard.
+                    else if ($lbcoc_config->changefilterslinktarget == HOMEPAGE_MY) {
+                        $url = new moodle_url('/my/');
+                    }
+                    // Should not happen.
+                    else {
+                        $url = new moodle_url('/my/');
+                    }
+                    $string .= html_writer::link($url, get_string('activefiltershintnotshowenabledchangelink', 'local_boostcoc'));
+                }
+
+                // Create new navigation node.
+                $navnode = navigation_node::create($string, null, global_navigation::TYPE_CUSTOM, null,
+                        'localboostcocactivefiltershint');
+
+                // Show the navigation node in Boost's nav drawer.
+                $navnode->showinflatnavigation = true;
+
+                // Add the node to the mycourses list in Boost's nav drawer (will be added at the end where we want it to be).
+                $mycoursesnode->add_node($navnode);
             }
-
-            // Add line break if both settings are enabled.
-            if ($lbcoc_config->addactivefiltershint == true && $lbcoc_config->addchangefilterslink == true) {
-                $string .= html_writer::empty_tag('br');
-            }
-
-            // Create change filters link.
-            if ($lbcoc_config->addchangefilterslink == true) {
-                // Link target: Site home.
-                if ($lbcoc_config->changefilterslinktarget == HOMEPAGE_SITE) {
-                    $url = new moodle_url('/', array('redirect' => 0));
-                }
-                // Link target: Dashboard.
-                else if ($lbcoc_config->changefilterslinktarget == HOMEPAGE_MY) {
-                    $url = new moodle_url('/my/');
-                }
-                // Should not happen.
-                else {
-                    $url = new moodle_url('/my/');
-                }
-                $string .= html_writer::link($url, get_string('activefiltershintnotshowenabledchangelink', 'local_boostcoc'));
-            }
-
-            // Create new navigation node.
-            $navnode = navigation_node::create($string, null, global_navigation::TYPE_CUSTOM, null,
-                    'localboostcocactivefiltershint');
-
-            // Show the navigation node in Boost's nav drawer.
-            $navnode->showinflatnavigation = true;
-
-            // Add the node to the mycourses list in Boost's nav drawer (will be added at the end where we want it to be).
-            $mycoursesnode->add_node($navnode);
         }
     }
 }
