@@ -25,11 +25,15 @@ Usage & Settings
 After installing local_boostcoc, the plugin does not do anything to Moodle yet.
 To configure the plugin and its behaviour, please visit Site administration -> Appearance -> Boost navdrawer course overview on campus.
 
-There, you find one section:
+There, you find two sections:
 
-### 1. TODO
+### 1. General functionality
 
-TODO
+Enabling this setting will modify the mycourses list in Boost's nav drawer to only show the courses which are currently shown in block_course_overview_campus according to the user's current filter settings and to the courses which the user has marked as hidden. Technically, this is done by setting the course node's showinflatnavigation attribute to false. Thus, the course node will only be hidden from the nav drawer, but it will remain in the navigation tree and can still be accessed by other parts of Moodle.
+
+### 2. Filter status
+
+With the settings in this section, you can add a node to the end of the mycourses list in Boost's nav drawer telling the user why the mycourses list looks as it is (e.g. which filters and if hidden courses produced the current mycourses list) and / or telling the user where to change the current filters and hidden courses.
 
 
 Themes
