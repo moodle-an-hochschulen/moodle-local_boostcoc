@@ -30,10 +30,10 @@ defined('MOODLE_INTERNAL') || die();
  * @param global_navigation $navigation
  */
 function local_boostcoc_extend_navigation(global_navigation $navigation) {
-    global $PAGE, $CFG;
+    global $CFG;
 
     // Fetch local_boostcoc config.
-    $lbcoc_config = get_config('local_boostcoc');
+    $lbcocconfig = get_config('local_boostcoc');
 
     // Include local library from local_boostcoc.
     require_once(dirname(__FILE__) . '/locallib.php');
@@ -44,13 +44,13 @@ function local_boostcoc_extend_navigation(global_navigation $navigation) {
     // If we need the mycourses node for any enabled feature, fetch it only once and use it multiple times.
     // We have to check explicitely if the configurations are set because this function will already be
     // called at installation time and would then throw PHP notices otherwise.
-    if ((isset($lbcoc_config->enablenotshown) && $lbcoc_config->enablenotshown == true) ||
-            (isset($lbcoc_config->addactivefiltershint) && $lbcoc_config->addactivefiltershint == true)) {
+    if ((isset($lbcocconfig->enablenotshown) && $lbcocconfig->enablenotshown == true) ||
+            (isset($lbcocconfig->addactivefiltershint) && $lbcocconfig->addactivefiltershint == true)) {
         $mycoursesnode = $navigation->find('mycourses', global_navigation::TYPE_ROOTNODE);
     }
 
     // Check if admin wanted us to modify the mycourses list in Boost's nav drawer.
-    if (isset($lbcoc_config->enablenotshown) && $lbcoc_config->enablenotshown == true) {
+    if (isset($lbcocconfig->enablenotshown) && $lbcocconfig->enablenotshown == true) {
         // If yes, do it.
         if ($mycoursesnode) {
             // Get list of not shown courses which is remembered by block_course_overview_campus for us.
@@ -74,9 +74,9 @@ function local_boostcoc_extend_navigation(global_navigation $navigation) {
                                 $mycoursesnode->find($cn, null)->showinflatnavigation = false;
                             }
                         }
-                    }
-                    // Otherwise we have a flat navigation tree and hiding the courses is easy.
-                    else {
+
+                        // Otherwise we have a flat navigation tree and hiding the courses is easy.
+                    } else {
                         // Hide course node if it is in the list of not shown courses.
                         if (in_array($k, $notshowncourses)) {
                             $mycoursesnode->get($k)->showinflatnavigation = false;
@@ -88,8 +88,8 @@ function local_boostcoc_extend_navigation(global_navigation $navigation) {
     }
 
     // Check if admin wanted us to add the active filters hint or change filters link to the mycourses list in Boost's nav drawer.
-    if ((isset($lbcoc_config->addactivefiltershint) && $lbcoc_config->addactivefiltershint == true) ||
-            isset($lbcoc_config->addchangefilterslink) && $lbcoc_config->addchangefilterslink == true) {
+    if ((isset($lbcocconfig->addactivefiltershint) && $lbcocconfig->addactivefiltershint == true) ||
+            isset($lbcocconfig->addchangefilterslink) && $lbcocconfig->addchangefilterslink == true) {
         // If yes, do it.
         if ($mycoursesnode) {
             // Do only if I am enrolled in at least one course.
@@ -98,9 +98,9 @@ function local_boostcoc_extend_navigation(global_navigation $navigation) {
                 $string = '';
 
                 // Create active filters hint.
-                if ($lbcoc_config->addactivefiltershint == true) {
+                if ($lbcocconfig->addactivefiltershint == true) {
                     // Build active filters hint string.
-                    if ($lbcoc_config->enablenotshown == true) {
+                    if ($lbcocconfig->enablenotshown == true) {
                         $string .= local_boostcoc_get_activefilters_string();
                     } else {
                         $string .= get_string('activefiltershintnotshowdisabled', 'local_boostcoc');
@@ -108,22 +108,22 @@ function local_boostcoc_extend_navigation(global_navigation $navigation) {
                 }
 
                 // Add line break if both settings are enabled.
-                if ($lbcoc_config->addactivefiltershint == true && $lbcoc_config->addchangefilterslink == true) {
+                if ($lbcocconfig->addactivefiltershint == true && $lbcocconfig->addchangefilterslink == true) {
                     $string .= html_writer::empty_tag('br');
                 }
 
                 // Create change filters link.
-                if ($lbcoc_config->addchangefilterslink == true) {
+                if ($lbcocconfig->addchangefilterslink == true) {
                     // Link target: Site home.
-                    if ($lbcoc_config->changefilterslinktarget == HOMEPAGE_SITE) {
+                    if ($lbcocconfig->changefilterslinktarget == HOMEPAGE_SITE) {
                         $url = new moodle_url('/', array('redirect' => 0));
-                    }
-                    // Link target: Dashboard.
-                    else if ($lbcoc_config->changefilterslinktarget == HOMEPAGE_MY) {
+
+                        // Link target: Dashboard.
+                    } else if ($lbcocconfig->changefilterslinktarget == HOMEPAGE_MY) {
                         $url = new moodle_url('/my/');
-                    }
-                    // Should not happen.
-                    else {
+
+                        // Should not happen.
+                    } else {
                         $url = new moodle_url('/my/');
                     }
                     $string .= html_writer::link($url, get_string('activefiltershintnotshowenabledchangelink', 'local_boostcoc'));

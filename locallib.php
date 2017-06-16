@@ -54,7 +54,8 @@ function local_boostcoc_get_activefilters_string() {
         // Mapping from element IDs to configured filter names.
         $map['filterterm'] = format_string(get_config('block_course_overview_campus', 'termcoursefilterdisplayname'));
         $map['filtercategory'] = format_string(get_config('block_course_overview_campus', 'categorycoursefilterdisplayname'));
-        $map['filtertoplevelcategory'] = format_string(get_config('block_course_overview_campus', 'toplevelcategorycoursefilterdisplayname'));
+        $map['filtertoplevelcategory'] = format_string(get_config('block_course_overview_campus',
+                'toplevelcategorycoursefilterdisplayname'));
         $map['filterteacher'] = format_string(get_config('block_course_overview_campus', 'teachercoursefilterdisplayname'));
         $map['hidecourses'] = get_string('activefiltershiddencourses', 'local_boostcoc');
 
@@ -69,9 +70,9 @@ function local_boostcoc_get_activefilters_string() {
 
         // Return string.
         return $activefiltersstring;
-    }
-    // If no filter is active.
-    else {
+
+        // If no filter is active.
+    } else {
         return get_string('activefiltershintnotshowenablednoactivefilters', 'local_boostcoc');
     }
 }
