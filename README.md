@@ -40,7 +40,7 @@ Although you might not need the functionality of local_boostnavigation, local_bo
 Usage & Settings
 ----------------
 
-After installing local_boostcoc, the plugin does not do anything to Moodle yet.
+After installing the plugin, it does not do anything to Moodle yet.
 
 To configure the plugin and its behaviour, please visit:
 Site administration -> Appearance -> Boost navdrawer course overview on campus.
