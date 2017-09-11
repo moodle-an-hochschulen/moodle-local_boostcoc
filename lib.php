@@ -36,10 +36,10 @@ function local_boostcoc_extend_navigation(global_navigation $navigation) {
     $lbcocconfig = get_config('local_boostcoc');
 
     // Include local library from local_boostcoc.
-    require_once(dirname(__FILE__) . '/locallib.php');
+    require_once(__DIR__ . '/locallib.php');
 
     // Include local library from local_boostnavigation.
-    require_once(dirname(dirname(__FILE__)) . '/boostnavigation/locallib.php');
+    require_once(__DIR__ . '/../boostnavigation/locallib.php');
 
     // If we need the mycourses node for any enabled feature, fetch it only once and use it multiple times.
     // We have to check explicitely if the configurations are set because this function will already be
