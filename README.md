@@ -61,6 +61,15 @@ Uniformity of the mycourses lists
 
 The mycourses list which is added to the nav drawer by Moodle core and which are shown in block_course_overview_campus are created and configured independently. To help you to create a uniform look & feel of both mycourses lists, we want to give you some advice:
 
+### List length
+
+In block_course_overview_campus, you will see all courses where you are enrolled, no matter how long this list will get.
+
+In Moodle core and thus in the nav drawer, there is a setting navcourselimit which limits the list of courses and which can be configured on/admin/settings.php?section=navigation.
+
+To fully match the lists of courses in block_course_overview_campus and in the Moodle nav drawer, please set navcourselimit to a very high number (like 10000) to avoid any limiting in list length.
+
+
 ### Course name style
 
 In block_course_overview_campus, you can use the setting firstrowcoursename to control if you want to see a course's full name or short name in the first line of the course list entries.
