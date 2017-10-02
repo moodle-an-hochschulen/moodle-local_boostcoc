@@ -61,11 +61,34 @@ Uniformity of the mycourses lists
 
 The mycourses list which is added to the nav drawer by Moodle core and which are shown in block_course_overview_campus are created and configured independently. To help you to create a uniform look & feel of both mycourses lists, we want to give you some advice:
 
+### List completeness
+
+In block_course_overview_campus, you will see all courses where you are enrolled, no matter how old or new they are.
+
+In Moodle core and thus in the nav drawer, there are only courses shown which are "in progress", which means that courses which haven't started yet (according to the course start date), which are already finished (according to the course end date) or which are completed (according to the user's course completion) are not shown. This behaviour was introduced in MDL-58136 and isn't configurable yet, unfortunately. 
+
+To make the list of courses in the Moodle nav drawer complete again, you need to apply this core hack to Moodle core:
+
+```
+--- a/lib/navigationlib.php
++++ b/lib/navigationlib.php
+@@ -2928,7 +2928,7 @@ class global_navigation extends navigation_node {
+
+         // Go through the courses and see which ones we want to display in the flatnav.
+         foreach ($courses as $course) {
+-            $classify = course_classify_for_timeline($course);
++            $classify = COURSE_TIMELINE_INPROGRESS;
+
+             if ($classify == COURSE_TIMELINE_INPROGRESS) {
+                 $flatnavcourses[$course->id] = $course;
+```
+
+
 ### List length
 
 In block_course_overview_campus, you will see all courses where you are enrolled, no matter how long this list will get.
 
-In Moodle core and thus in the nav drawer, there is a setting navcourselimit which limits the list of courses and which can be configured on/admin/settings.php?section=navigation.
+In Moodle core and thus in the nav drawer, there is a setting navcourselimit (introduced in MDL-59140) which limits the list of courses and which can be configured on/admin/settings.php?section=navigation.
 
 To fully match the lists of courses in block_course_overview_campus and in the Moodle nav drawer, please set navcourselimit to a very high number (like 10000) to avoid any limiting in list length.
 
