@@ -83,6 +83,8 @@ To make the list of courses in the Moodle nav drawer complete again, you need to
                  $flatnavcourses[$course->id] = $course;
 ```
 
+Alternatively you can enable the setting ```disableinprogressfilter``` to override Moodle's internal filter.
+
 
 ### List length
 

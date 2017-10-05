@@ -47,6 +47,11 @@ function local_boostcoc_extend_navigation(global_navigation $navigation) {
     if ((isset($lbcocconfig->enablenotshown) && $lbcocconfig->enablenotshown == true) ||
             (isset($lbcocconfig->addactivefiltershint) && $lbcocconfig->addactivefiltershint == true)) {
         $mycoursesnode = $navigation->find('mycourses', global_navigation::TYPE_ROOTNODE);
+        if ((isset($lbcocconfig->disableinprogressfilter) && $lbcocconfig->disableinprogressfilter == true)) {
+            foreach ($mycoursesnode->children as $coursenode) {
+                $coursenode->showinflatnavigation = true;
+            }
+        }
     }
 
     // Check if admin wanted us to modify the mycourses list in Boost's nav drawer.
