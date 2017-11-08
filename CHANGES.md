@@ -4,6 +4,10 @@ moodle-local_boostcoc
 Changes
 -------
 
+### Unreleased
+
+* 2017-11-08 - Updated travis.yml to use newer node version for fixing TravisCI error.
+
 ### v3.2-r4
 
 * 2017-10-02 - Add note about Moodle core course list completeness to README. Please observe the notes in README about list completeness when upgrading the plugin.
