@@ -42,3 +42,6 @@ $string['setting_enablenotshowntechnicalhint'] = 'Technically, this is done by s
 $string['setting_enablenotshownperformancehint'] = 'Please note: If you enable this setting and have also enabled the setting <a href="/admin/search.php?query=navshowmycoursecategories">navshowmycoursecategories</a>, removing the course nodes takes more time and you should consider disabling the navshowmycoursecategories setting.';
 $string['setting_filterstatusheading'] = 'Filter status';
 $string['setting_generalfunctionalityheading'] = 'General functionality';
+$string['setting_disableinprogressfilter'] = 'Disable Moodle built-in in-progress filter';
+$string['setting_disableinprogressfilter_desc'] = 'Moodle\'s standard behavior is to only display in-progress courses in the \'My Courses\' navigation menu. Combined with the functionality of this plugin this may lead to confusing results, e.g. courses visible in the course overview  but not in \'My Course\'. Selecting this option disables Moodle\'s standard filter. NOTE: this option only works if the option <a href="/admin/search.php?query=enablenotshown">enablenotshown</a> is enabled.';
+$string['setting_disableinprogressfilter_technicalhint'] = 'Enabling this option overrides the attribute <code>showinflatnavigation</code> of course nodes before applying CoC filters. The performance pernalty should be negligible. ';
