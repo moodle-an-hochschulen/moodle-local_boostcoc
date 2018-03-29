@@ -46,6 +46,13 @@ if ($hassiteconfig) {
                         get_string('setting_enablenotshownperformancehint', 'local_boostcoc'),
                 0));
 
+        // Create disable in-progress filter control widget.
+        $page->add(new admin_setting_configcheckbox('local_boostcoc/disableinprogressfilter',
+                get_string('setting_disableinprogressfilter', 'local_boostcoc', null, true),
+                get_string('setting_disableinprogressfilter_desc', 'local_boostcoc', null, true).'<br />'.
+                        get_string('setting_disableinprogressfilterperformancehint', 'local_boostcoc'),
+                0));
+
         // Add filter status heading.
         $page->add(new admin_setting_heading('local_boostcoc/filterstatusheading',
                 get_string('setting_filterstatusheading', 'local_boostcoc', null, true),

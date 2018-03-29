@@ -41,46 +41,65 @@ function local_boostcoc_extend_navigation(global_navigation $navigation) {
     // Include local library from local_boostnavigation.
     require_once(__DIR__ . '/../boostnavigation/locallib.php');
 
-    // If we need the mycourses node for any enabled feature, fetch it only once and use it multiple times.
+    // As we need the mycourses node for any enabled feature, fetch it only once and use it multiple times.
     // We have to check explicitely if the configurations are set because this function will already be
     // called at installation time and would then throw PHP notices otherwise.
     if ((isset($lbcocconfig->enablenotshown) && $lbcocconfig->enablenotshown == true) ||
+            (isset($lbcocconfig->disableinprogressfilter) && $lbcocconfig->disableinprogressfilter == true) ||
             (isset($lbcocconfig->addactivefiltershint) && $lbcocconfig->addactivefiltershint == true)) {
         $mycoursesnode = $navigation->find('mycourses', global_navigation::TYPE_ROOTNODE);
     }
 
-    // Check if admin wanted us to modify the mycourses list in Boost's nav drawer.
-    if (isset($lbcocconfig->enablenotshown) && $lbcocconfig->enablenotshown == true) {
+    // Check if admin wanted us to apply the COC filters to the mycourses list in Boost's nav drawer
+    // and / or if admin wanted us to show all courses in Boost's nav drawer regardless of the course progress.
+    if ((isset($lbcocconfig->enablenotshown) && $lbcocconfig->enablenotshown == true) ||
+            (isset($lbcocconfig->disableinprogressfilter) && $lbcocconfig->disableinprogressfilter == true)) {
         // If yes, do it.
         if ($mycoursesnode) {
-            // Get list of not shown courses which is remembered by block_course_overview_campus for us.
-            $notshowncourses = local_boostcoc_get_notshowncourses();
+            // If admin wanted us to apply the COC filters to the mycourses list in Boost's nav drawer.
+            if ($lbcocconfig->enablenotshown == true) {
+                // Get list of not shown courses which is remembered by block_course_overview_campus for us.
+                $notshowncourses = local_boostcoc_get_notshowncourses();
+            }
 
-            // We only need to continue if there are any courses not to be shown currently.
-            if (count($notshowncourses) > 0) {
-                // Check all courses below the mycourses node.
-                $mycourseschildrennodeskeys = $mycoursesnode->get_children_key_list();
-                foreach ($mycourseschildrennodeskeys as $k) {
-                    // If the admin decided to display categories, things get slightly complicated.
-                    if ($CFG->navshowmycoursecategories) {
-                        // We need to find all children nodes first.
-                        $allchildrennodes = local_boostnavigation_get_all_childrenkeys($mycoursesnode->get($k));
-                        // Then we can check each children node.
-                        // Unfortunately, the children nodes have navigation_node type TYPE_MY_CATEGORY or navigation_node type
-                        // TYPE_COURSE, thus we need to search without a specific navigation_node type.
-                        foreach ($allchildrennodes as $cn) {
-                            // Hide course node if it is in the list of not shown courses.
-                            if (in_array($cn, $notshowncourses)) {
-                                $mycoursesnode->find($cn, null)->showinflatnavigation = false;
-                            }
-                        }
+            // Check all courses below the mycourses node.
+            $mycourseschildrennodeskeys = $mycoursesnode->get_children_key_list();
+            foreach ($mycourseschildrennodeskeys as $k) {
+                // If the admin decided to display categories, things get slightly complicated.
+                if ($CFG->navshowmycoursecategories) {
+                    // We need to find all children nodes first.
+                    $allchildrennodes = local_boostnavigation_get_all_childrenkeys($mycoursesnode->get($k));
+                    // Then we can check each children node.
+                    // Unfortunately, the children nodes have navigation_node type TYPE_MY_CATEGORY or navigation_node type
+                    // TYPE_COURSE, thus we need to search without a specific navigation_node type.
+                    foreach ($allchildrennodes as $cn) {
+                        // If admin wanted us to apply the COC filters to the mycourses list in Boost's nav drawer and
+                        // if if the node is in the list of not shown courses.
+                        if ($lbcocconfig->enablenotshown == true && in_array($cn, $notshowncourses)) {
+                            // Hide the course node.
+                            $mycoursesnode->find($cn, null)->showinflatnavigation = false;
 
-                        // Otherwise we have a flat navigation tree and hiding the courses is easy.
-                    } else {
-                        // Hide course node if it is in the list of not shown courses.
-                        if (in_array($k, $notshowncourses)) {
-                            $mycoursesnode->get($k)->showinflatnavigation = false;
+                            // Otherwise if admin wanted us to show all courses in Boost's nav drawer regardless
+                            // of the course progress.
+                        } else if ($lbcocconfig->disableinprogressfilter == true) {
+                            // Show the course node.
+                            $mycoursesnode->find($cn, null)->showinflatnavigation = true;
                         }
+                    }
+
+                    // Otherwise we have a flat navigation tree and hiding the courses is easy.
+                } else {
+                    // If admin wanted us to apply the COC filters to the mycourses list in Boost's nav drawer and
+                    // if if the node is in the list of not shown courses.
+                    if ($lbcocconfig->enablenotshown == true && in_array($k, $notshowncourses)) {
+                        // Hide the course node.
+                        $mycoursesnode->get($k)->showinflatnavigation = false;
+
+                        // Otherwise if admin wanted us to show all courses in Boost's nav drawer regardless
+                        // of the course progress.
+                    } else if ($lbcocconfig->disableinprogressfilter == true) {
+                        // Show the course node.
+                        $mycoursesnode->get($k)->showinflatnavigation = true;
                     }
                 }
             }

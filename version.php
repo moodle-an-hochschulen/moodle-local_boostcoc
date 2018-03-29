@@ -25,7 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'local_boostcoc';
-$plugin->version = 2017100200;
+$plugin->version = 2018032900;
 $plugin->release = 'v3.2-r4';
 $plugin->requires = 2017051500;
 $plugin->maturity = MATURITY_STABLE;
