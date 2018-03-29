@@ -75,13 +75,13 @@ function local_boostcoc_extend_navigation(global_navigation $navigation) {
                     foreach ($allchildrennodes as $cn) {
                         // If admin wanted us to apply the COC filters to the mycourses list in Boost's nav drawer and
                         // if if the node is in the list of not shown courses.
-                        if ($lbcocconfig->enablenotshown == true && in_array($cn, $notshowncourses)) {
+                        if (isset($lbcocconfig->enablenotshown) && $lbcocconfig->enablenotshown == true && in_array($cn, $notshowncourses)) {
                             // Hide the course node.
                             $mycoursesnode->find($cn, null)->showinflatnavigation = false;
 
                             // Otherwise if admin wanted us to show all courses in Boost's nav drawer regardless
                             // of the course progress.
-                        } else if ($lbcocconfig->disableinprogressfilter == true) {
+                        } else if (isset($lbcocconfig->disableinprogressfilter) && $lbcocconfig->disableinprogressfilter == true) {
                             // Show the course node.
                             $mycoursesnode->find($cn, null)->showinflatnavigation = true;
                         }
@@ -91,13 +91,13 @@ function local_boostcoc_extend_navigation(global_navigation $navigation) {
                 } else {
                     // If admin wanted us to apply the COC filters to the mycourses list in Boost's nav drawer and
                     // if if the node is in the list of not shown courses.
-                    if ($lbcocconfig->enablenotshown == true && in_array($k, $notshowncourses)) {
+                    if (isset($lbcocconfig->enablenotshown) && $lbcocconfig->enablenotshown == true && in_array($k, $notshowncourses)) {
                         // Hide the course node.
                         $mycoursesnode->get($k)->showinflatnavigation = false;
 
                         // Otherwise if admin wanted us to show all courses in Boost's nav drawer regardless
                         // of the course progress.
-                    } else if ($lbcocconfig->disableinprogressfilter == true) {
+                    } else if (isset($lbcocconfig->disableinprogressfilter) && $lbcocconfig->disableinprogressfilter == true) {
                         // Show the course node.
                         $mycoursesnode->get($k)->showinflatnavigation = true;
                     }

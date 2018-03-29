@@ -4,6 +4,10 @@ moodle-local_boostcoc
 Changes
 -------
 
+### Unreleased
+
+* 2018-03-29 - Get rid of a debug notice due to an uninitialized setting.
+
 ### v3.3-r1
 
 * 2018-03-29 - Add setting to show all courses regardless of their in-progress status. If you have used the core hack for list completeness (see https://github.com/moodleuulm/moodle-local_boostcoc/blob/v3.2-r4/README.md#list-completeness) before, you can remove it now and enable the new setting. Credits to Dimitri Vorona. 
