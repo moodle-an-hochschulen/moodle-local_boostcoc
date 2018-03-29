@@ -4,7 +4,7 @@ moodle-local_boostcoc
 Changes
 -------
 
-### Unreleased
+### v3.4-r1
 
 * 2018-03-30 - Check compatibility for Moodle 3.4, no functionality change.
 * 2018-03-29 - Get rid of a debug notice due to an uninitialized setting.
