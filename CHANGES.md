@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2018-03-30 - Check compatibility for Moodle 3.4, no functionality change.
 * 2018-03-29 - Get rid of a debug notice due to an uninitialized setting.
 
 ### v3.3-r1
