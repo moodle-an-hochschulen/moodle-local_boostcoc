@@ -151,7 +151,7 @@ function local_boostcoc_extend_navigation(global_navigation $navigation) {
                 // Create new navigation node.
                 // (use TYPE_COURSE to get the correct indent instead of TYPE_CUSTOM which would be semantically correct).
                 $navnode = navigation_node::create($string, null, global_navigation::TYPE_COURSE, null,
-                        'localboostcocactivefiltershint');
+                        'localboostcocactivefiltershint', new pix_icon('i/filter', ''));
 
                 // Show the navigation node in Boost's nav drawer.
                 $navnode->showinflatnavigation = true;

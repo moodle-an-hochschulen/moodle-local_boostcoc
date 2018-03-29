@@ -4,6 +4,10 @@ moodle-local_boostcoc
 Changes
 -------
 
+### Unreleased
+
+* 2018-03-30 - Add a nice filter icon to the filter status node, this is only displayed in themes supporting node icons.
+
 ### v3.4-r1
 
 * 2018-03-30 - Check compatibility for Moodle 3.4, no functionality change.
