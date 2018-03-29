@@ -25,8 +25,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'local_boostcoc';
-$plugin->version = 2018032900;
-$plugin->release = 'v3.2-r4';
+$plugin->version = 2018032901;
+$plugin->release = 'v3.3-r1';
 $plugin->requires = 2017051500;
 $plugin->maturity = MATURITY_STABLE;
 $plugin->dependencies = array('theme_boost' => 2017051500,
