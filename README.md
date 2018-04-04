@@ -49,7 +49,7 @@ There, you find two sections:
 
 ### 1. General functionality
 
-Enabling this setting will modify the mycourses list in Boost's nav drawer to only show the courses which are currently shown in block_course_overview_campus according to the user's current filter settings and to the courses which the user has marked as hidden. Technically, this is done by setting the course node's showinflatnavigation attribute to false. Thus, the course node will only be hidden from the nav drawer, but it will remain in the navigation tree and can still be accessed by other parts of Moodle.
+Enabling one or both of these settings will modify the mycourses list in Boost's nav drawer to reflect the list of courses shown in block_course_overview_campus according to the user's current filter settings and to the courses which the user has marked as hidden. Please see also the notes for uniformity of the mycourses lists below.
 
 ### 2. Filter status
 
