@@ -4,7 +4,7 @@ moodle-local_boostcoc
 Changes
 -------
 
-### Unreleased
+### v3.4-r2
 
 * 2018-05-16 - Implement Privacy API.
 * 2018-04-04 - Improve description of settings in README.
