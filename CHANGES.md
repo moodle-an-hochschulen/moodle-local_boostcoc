@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2018-05-16 - Implement Privacy API.
 * 2018-04-04 - Improve description of settings in README.
 * 2018-03-30 - Add a nice filter icon to the filter status node, this is only displayed in themes supporting node icons.
 

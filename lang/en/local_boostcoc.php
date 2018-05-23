@@ -25,6 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Boost course overview on campus';
+$string['privacy:metadata'] = 'The Boost course overview on campus provides extended functionality to Moodle users, but does not store any personal data itself. It consumes the personal data stored by the Course overview on Campus (block_course_overview_campus) plugin.';
 $string['activefiltershiddencourses'] = 'Hidden courses';
 $string['activefiltershintnotshowenabledactivefilters'] = 'Active course filters:';
 $string['activefiltershintnotshowenablednoactivefilters'] = 'No active course filters';
