@@ -75,7 +75,8 @@ function local_boostcoc_extend_navigation(global_navigation $navigation) {
                     foreach ($allchildrennodes as $cn) {
                         // If admin wanted us to apply the COC filters to the mycourses list in Boost's nav drawer and
                         // if if the node is in the list of not shown courses.
-                        if (isset($lbcocconfig->enablenotshown) && $lbcocconfig->enablenotshown == true && in_array($cn, $notshowncourses)) {
+                        if (isset($lbcocconfig->enablenotshown) && $lbcocconfig->enablenotshown == true &&
+                                in_array($cn, $notshowncourses)) {
                             // Hide the course node.
                             $mycoursesnode->find($cn, null)->showinflatnavigation = false;
 
@@ -91,7 +92,8 @@ function local_boostcoc_extend_navigation(global_navigation $navigation) {
                 } else {
                     // If admin wanted us to apply the COC filters to the mycourses list in Boost's nav drawer and
                     // if if the node is in the list of not shown courses.
-                    if (isset($lbcocconfig->enablenotshown) && $lbcocconfig->enablenotshown == true && in_array($k, $notshowncourses)) {
+                    if (isset($lbcocconfig->enablenotshown) && $lbcocconfig->enablenotshown == true &&
+                            in_array($k, $notshowncourses)) {
                         // Hide the course node.
                         $mycoursesnode->get($k)->showinflatnavigation = false;
 
