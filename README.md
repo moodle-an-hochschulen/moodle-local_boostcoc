@@ -99,17 +99,19 @@ We plan to improve this sorting mismatch in a later release of local_boostcoc. U
 Optionally, if you can and want to add core hacks to Moodle core, you can apply this patch to prevent Moodle core from putting invisible courses at the end of the mycourses list in the nav drawer which will make the course list sortings really equal:
 
 ```
---- a/lib/navigationlib.php
-+++ b/lib/navigationlib.php
-@@ -2883,7 +2883,7 @@ class global_navigation extends navigation_node {
-      */
-     protected function load_courses_enrolled() {
-         global $CFG;
--        $sortorder = 'visible DESC';
-+        $sortorder = 'fullname ASC';
-         // Prevent undefined $CFG->navsortmycoursessort errors.
+--- a/lib/enrollib.php
++++ b/lib/enrollib.php
+@@ -564,9 +564,9 @@ function enrol_get_my_courses($fields = null, $sort = null, $limit = 0, $coursei
+
+     if ($sort === null) {
          if (empty($CFG->navsortmycoursessort)) {
-             $CFG->navsortmycoursessort = 'sortorder';
+-            $sort = 'visible DESC, sortorder ASC';
++            $sort = 'sortorder ASC';
+         } else {
+-            $sort = 'visible DESC, '.$CFG->navsortmycoursessort.' ASC';
++            $sort = $CFG->navsortmycoursessort.' ASC';
+         }
+     }
 ```
 
 
