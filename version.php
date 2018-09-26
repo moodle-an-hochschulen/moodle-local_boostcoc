@@ -27,8 +27,8 @@ defined('MOODLE_INTERNAL') || die();
 $plugin->component = 'local_boostcoc';
 $plugin->version = 2018051700;
 $plugin->release = 'v3.4-r2';
-$plugin->requires = 2017111300;
+$plugin->requires = 2018051700;
 $plugin->maturity = MATURITY_STABLE;
-$plugin->dependencies = array('theme_boost' => 2017111300,
-        'block_course_overview_campus' => 2018033000,
-        'local_boostnavigation' => 2018022702);
+$plugin->dependencies = array('theme_boost' => 2018051300,
+        'block_course_overview_campus' => 2018070200,
+        'local_boostnavigation' => 2018071902);
