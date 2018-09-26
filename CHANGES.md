@@ -4,7 +4,7 @@ moodle-local_boostcoc
 Changes
 -------
 
-### Unreleased
+### v3.5-r1
 
 * 2018-08-26 - Change the optional core hack for course list sorting due to a change in Moodle core - please update your core hack if are using it. 
 * 2018-08-26 - Check compatibility for Moodle 3.5, no functionality change.
