@@ -4,6 +4,10 @@ moodle-local_boostcoc
 Changes
 -------
 
+### Unreleased
+
+* 2018-12-05 - Changed travis.yml due to upstream changes.
+
 ### v3.5-r1
 
 * 2018-08-26 - Change the optional core hack for course list sorting due to a change in Moodle core - please update your core hack if are using it. 
