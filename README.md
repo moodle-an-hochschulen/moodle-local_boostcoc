@@ -9,7 +9,7 @@ Moodle plugin which adds support for filtering courses with block_course_overvie
 Requirements
 ------------
 
-This plugin requires Moodle 3.5+
+This plugin requires Moodle 3.6+
 
 
 Motivation for this plugin
