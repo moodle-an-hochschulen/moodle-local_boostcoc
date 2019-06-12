@@ -4,7 +4,7 @@ moodle-local_boostcoc
 Changes
 -------
 
-### Unreleased
+### v3.7-r1
 
 * 2019-06-12 - Check compatibility for Moodle 3.7, no functionality change.
 
