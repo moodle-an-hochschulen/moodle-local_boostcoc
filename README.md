@@ -1,7 +1,7 @@
 moodle-local_boostcoc
 =====================
 
-[![Build Status](https://travis-ci.org/moodleuulm/moodle-local_boostcoc.svg?branch=master)](https://travis-ci.org/moodleuulm/moodle-local_boostcoc)
+[![Build Status](https://travis-ci.com/moodleuulm/moodle-local_boostcoc.svg?branch=master)](https://travis-ci.com/moodleuulm/moodle-local_boostcoc)
 
 Moodle plugin which adds support for filtering courses with block_course_overview_campus to the mycourses list in Boost's nav drawer
 
