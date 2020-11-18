@@ -6,6 +6,14 @@ moodle-local_boostcoc
 Moodle plugin which adds support for filtering courses with block_course_overview_campus to the mycourses list in Boost's nav drawer
 
 
+:warning: End of life
+---------------------
+
+**This plugin has reached end of life.**
+
+This plugin is not actively maintained anymore for Moodle versions beyond 3.7. Please consider to replace it with block_myoverview and our plugin [local_boostnavigation](https://github.com/moodleuulm/moodle-local_boostnavigation).
+
+
 Requirements
 ------------
 
